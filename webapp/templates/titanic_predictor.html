@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Would You Have Survived the Titanic?</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='styles/style.css')}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, height=device-height">
+</head>
+<body>
+
+<div id="left">
+    <h1 id="header">Would You Have Survived the Titanic?</h1>
+    <form id="form" action="/">
+        <label for="age" class="labels">What's your age?</label>
+          <br>
+          <select name="age" id="age" required>
+              <option value="">Please select</option>
+              <option value="<12"{% if (x_userinput[0] and x_userinput[0]=='<12') %} selected {% endif %}><12</option>
+              <option value="12-18"{% if (x_userinput[0] and x_userinput[0]=='12-18') %} selected {% endif %}>12-18</option>
+              <option value="18-25"{% if (x_userinput[0] and x_userinput[0]=='18-25') %} selected {% endif %}>18-25</option>
+              <option value="25-35"{% if (x_userinput[0] and x_userinput[0]=='25-35') %} selected {% endif %}>25-35</option>
+              <option value="35-45"{% if (x_userinput[0] and x_userinput[0]=='35-45') %} selected {% endif %}>35-45</option>
+              <option value=">45"{% if (x_userinput[0] and x_userinput[0]=='>45') %} selected {% endif %}><45</option>
+          </select>
+
+        <br><br>
+       <label for="gender" class="labels">What's your gender?</label>
+          <br>
+          <select name="gender" id="gender" required>
+              <option value="">Please select</option>
+              <option value="male"{% if (x_userinput[1] and x_userinput[1]=='male') %} selected {% endif %}>Male</option>
+              <option value="female"{% if (x_userinput[1] and x_userinput[1]=='female') %} selected {% endif %}>Female</option>
+          </select>
+        <br><br>
+       <label for="title" class="labels">What's your title?</label>
+          <br>
+          <select name="title" id="title" required>
+              <option value="">Please select</option>
+              <option value="Mr"{% if (x_userinput[2] and x_userinput[2]=='Mr') %} selected {% endif %}>Mr.</option>
+              <option value="Miss"{% if (x_userinput[2] and x_userinput[2]=='Miss') %} selected {% endif %}>Miss.</option>
+              <option value="Mrs"{% if (x_userinput[2] and x_userinput[2]=='Mrs') %} selected {% endif %}>Mrs.</option>
+              <option value="Dr"{% if (x_userinput[2] and x_userinput[2]=='Dr') %} selected {% endif %}>Dr.</option>
+              <option value="Master"{% if (x_userinput[2] and x_userinput[2]=='Master') %} selected {% endif %}>Master.</option>
+          </select>
+        <br><br>
+       <label for="embark" class="labels">Where are you embarking?</label>
+          <br>
+          <select name="embark" id="embark" required>
+              <option value="">Please select</option>
+              <option value="Q"{% if (x_userinput[3] and x_userinput[3]=='Q') %} selected {% endif %}>Queenstown</option>
+              <option value="S"{% if (x_userinput[3] and x_userinput[3]=='S') %} selected {% endif %}>Southampton</option>
+              <option value="C"{% if (x_userinput[3] and x_userinput[3]=='C') %} selected {% endif %}>Cherbourg</option>
+          </select>
+        <br><br>
+       <label for="pclass" class="labels">What passenger class are you in?</label>
+          <br>
+          <select name="pclass" id="pclass" required>
+              <option value="">Please select</option>
+              <option value="1"{% if (x_userinput[4] and x_userinput[4]=='1') %} selected {% endif %}>First Class</option>
+              <option value="2"{% if (x_userinput[4] and x_userinput[4]=='2') %} selected {% endif %}>Second Class</option>
+              <option value="3"{% if (x_userinput[4] and x_userinput[4]=='3') %} selected {% endif %}>Third Class</option>
+          </select>
+        <br><br>
+        <label for="individual_fare">How much is your ticket price ($)? * </label>
+        <br>
+        <input type="text" name="individual_fare" value="{{x_userinput[5]}}" required>
+        <br><br>
+        <label for="sibsp">Are you traveling with your siblings/spouse? If yes, how many? </label>
+        <br>
+        <input type="text" name="sibsp" value="{{x_userinput[6]}}" required>
+        <br><br>
+        <label for="parch">Are you traveling with your parents/children? If yes, how many? </label>
+        <br>
+        <input type="text" name="parch" value="{{x_userinput[7]}}" required>
+        <br><br>
+        <label for="group_size">How many people are you traveling with in total (excluding yourself)? </label>
+        <br>
+        <input type="text" name="group_size" value="{{x_userinput[8]}}" required>
+        <br><br>
+
+
+
+        <input type="submit" value="Predict" method="get">
+        <br><br><br>
+      </form>
+    <p>* The median ticket prices for First Class, Second Class, and Third Class passengers are $600, $250, and $150 respectively
+        (in current US dollars). Even though individual ticket prices are different, feel free to use this information to estimate your
+    survival likelihood!</p>
+</div>
+
+<div id="right" style="background-image: url({{url_for('static', filename='img/titanic.jpg')}});">
+    <div>
+        <p id="results">
+            Your probability of survival:
+            <br>
+        </p>
+        <p id="probability">
+            {{ 100 * prediction | round(4)}}%
+        </p>
+    </div>
+</div>
+
+</body>
+</html>
